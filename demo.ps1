@@ -18,7 +18,7 @@ function demo {
     # tack them to the body
     if ($Config.Keys.Count -gt 2) {
         $Config.Keys.Where({ $_ -ne 'URI' -and $_ -ne 'Message' }) |
-        % { $body.add($_, $Config["$_"]) }
+        ForEach-Object { $body.add($_, $Config["$_"]) }
     }
    
     Invoke-RestMethod -Uri $Config.URI -Method Post -Body $($body | ConvertTo-Json -Depth 99) -UseBasicParsing
